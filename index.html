@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
    <!-- <meta name="viewport" content="width=device-width,initial-scale=1">-->
-    <title> *AR* </title>
+    <title> ** </title>
 
-  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.2.0/dist/aframe-extras.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     
@@ -80,18 +80,25 @@
 <!-- ③ シーンを追加 -->
 <!--<a-scene embedded arjs='debugUIEnabled:false;trackingMethod: best;' vr-mode-ui="enabled: false">-->
 <!--<a-scene embedded arjs='debugUIEnabled:false;trackingMethod: best;'>-->
-    <a-scene embedded arjs='debugUIEnabled:false;'>
+    <a-scene embedded arjs='debugUIEnabled:false;' vr-mode-ui="enabled: false">
 
 
-<a-entity ><a-gltf-model src="kyoju003b.glb" position="-0.5 -1.0 -5" rotation="0 180 0" animation-mixer
-                animation="property: rotation;
- from: 0 0 0;
- to: 0 360 0;
- dir: normal;
- dur: 20000;
- loop: true;
- "></a-gltf-model></a-entity>
 
+
+
+
+        
+        
+<a-entity ><a-gltf-model src="kyoju003b.glb" position="-0.5 -1.0 -5" rotation="0 180 0"></a-gltf-model></a-entity>
+
+
+
+
+
+
+
+
+        
 
       <!-- ⑥ カメラを追加 -->
 <a-entity camera></a-entity>
@@ -105,18 +112,23 @@
 
 <div class="sui">
     <!-- X座標のスライダー -->
-    <label for="x-slider">座標XYX:<br></label>
-    <input type="range" id="x-slider" min="-10" max="10" step="0.1" value="-0.5">
+    <label for="x-slider">座標X:Y:Z:回転<br></label>
+    <input type="range" id="x-slider" min="-5" max="5" step="0.1" value="-0.5">
 
     <!-- Y座標のスライダー -->
     <label for="y-slider"></label>
-    <input type="range" id="y-slider" min="-10" max="10" step="0.1" value="-1.0">
+    <input type="range" id="y-slider" min="-5" max="5" step="0.1" value="-1.0">
 
     <!-- Z座標のスライダー -->
     <label for="z-slider"></label>
     <input type="range" id="z-slider" min="-10" max="10" step="0.1" value="-5">
 
-
+    <label for="r-slider"></label>
+    <input type="range" id="r-slider" min="0" max="360" step="10" value="0">
+    
+    <!-- ボタンUIを追加 -->
+    <!-- <button id="button1">オブジェクトA</button> -->
+    <!-- <button id="button2">オブジェクトB</button> -->
 </div>
     -->
 </body>
@@ -211,6 +223,26 @@
         model.setAttribute('position', xSlider.value + ' ' + ySlider.value + ' ' + z);
     });
 
+    var rSlider = document.querySelector('#r-slider');
+    var model = document.querySelector('a-gltf-model');
+    rSlider.addEventListener('input', function () {
+    var rotationValue = parseFloat(rSlider.value);
+    model.setAttribute('rotation', '0 ' + rotationValue + ' 0');
+});
 
+
+var button1 = document.querySelector('#button1');
+var button2 = document.querySelector('#button2');
+
+button1.addEventListener('click', function () {
+    var gltfModel = document.querySelector('a-gltf-model');
+    gltfModel.setAttribute('src', 'a.glb'); // モデルをb.glbに切り替える
+});
+    
+    
+button2.addEventListener('click', function () {
+    var gltfModel = document.querySelector('a-gltf-model');
+    gltfModel.setAttribute('src', 'b.glb'); // モデルをb.glbに切り替える
+});
 </script>
 </html>
